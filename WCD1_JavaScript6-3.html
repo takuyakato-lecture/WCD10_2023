@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Webコンテンツデザイン各論10：JavaScript入門６（3/4:演習）</title>
+        <link rel="stylesheet" href="WCD.css">
+        <!-- Webフォント用 -->
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;400&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+    <body>
+      <span class="small"><div id="time">経過時間：0秒</div></span>
+
+        <header>
+          <h1>Webコンテンツデザイン各論10：JavaScript入門６（3/4:演習）</h1>
+          <p class="right">
+            講師：加藤 卓哉<br>
+            <progress value="0.5"></progress><br>
+            (50％ / 100％)
+          </p>
+        </header>
+
+        <section> <!-- 動画 -->
+          <p>
+            <a href="WCD1_JavaScript6-2.html">[前の項目へ]</a>
+          </p>
+          <h2>③演習</h2>
+
+          <p class="doc">
+            以下の項目を一つずつ読んで内容を理解してください．<br>
+            最後に練習問題に取り組んで次の内容に進みましょう．<br>
+          </p>
+        </section>
+
+        <nav>
+          <h2>本項目の目次</h2>
+          <ul>
+            <li><a href="#sec1">演習①初級</a>
+            <li><a href="#sec2">演習①上級</a>
+            <li><a href="#sec3">演習②</a>
+          </ul>
+          <ul>
+            <li><a href="#ex3">練習問題３</a>
+          </ul>
+        </nav>
+
+        <div class="anmt">
+          <section id="sec1"> <!-- sec1 -->
+            <div class="hidden_box">
+              <label for="label1">演習①初級<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label1"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    それでは，本日も最後に演習に取り組み，本日学習した内容をきちんと使えるものとして身に着けられるようにしましょう．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-27.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    まずは演習①，onclickイベントの初級です．<br><br>
+
+                    プログラムを書き始める前に，まずはtest10.htmlの方に新たな要素を追加してください．<br>
+                    Hi!ボタンの下に空白のpタグを一つ追加してください．<br>
+                    空白のタグなので，ブラウザで開いても表示上は変化はしません．<br><br>
+
+                    この状態で，Hi!ボタンをクリックしたら，ボタンの下にクリックした回数が１，２，３，４，...と表示されるようなプログラムをtest10.jsに書きましょう．<br><br>
+
+                    こちらの演習は初級ですので，諦めずに必ず解けるように，わからないところがあったら資料を読み返してきちんと解けるようにしてください．<br>
+                    期末レポートでは，よりAdvancedな内容に取り組んでいただきますので，今のうちにしっかりと理解しておいてください．<br>
+                    次回以降の内容にも関連してきますので，今きちんと理解しておくことは非常に重要です．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="anmt">
+          <section id="sec2"> <!-- sec2 -->
+            <div class="hidden_box">
+              <label for="label2">演習①上級<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label2"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-28.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    続いては上級編です．<br>
+                    先ほどの初級のプログラムを改造していただき，Hi!ボタンをクリックしたら，クリックした時刻がボタンの下に表示されるようなプログラムを作成してください．<br>
+                    ここでは前回学習したDateオブジェクトを使用していただきます．<br>
+                    Dateオブジェクトの使い方に自信がない人は以下のリンクから前回の資料に戻りましょう．
+
+                  </div>
+                </div><br>
+
+                <p class="doc">
+                    <a href="WCD1_JavaScript5-1.html#sec3">メソッドの資料に戻る</a><br>
+                    ↑上記を閲覧した後にはブラウザの「戻る」でこのページに戻れます．
+                </p>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="anmt">
+          <section id="sec3"> <!-- sec3 -->
+            <div class="hidden_box">
+              <label for="label3">演習②<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label3"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-29.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    次の演習②では，onmouseoverイベントに関するプログラムを作成していただきます．<br>
+                    onmouseoverイベントは，マウスが特定の要素の上に重なった時のイベントです．<br>
+                    Hello!の文字の上をマウスが通過した際に，「This is a pen.」の文字が「Helloの上を通過！」に書き換えられるようなプログラムを作成しましょう．<br><br>
+
+                    onmouseoverイベントについてはここまでの資料で触れてきませんでしたが，今回の講義資料で触れられたイベントの種類はほんの一部です．<br>
+                    例えば，キーボードが押されたときのイベントなども存在しますが，触れてはいません．<br>
+                    重要なのは，イベントという概念の基本を理解することで，それによってあらゆる新しい要素に対応できる能力となります．<br>
+                    Web技術は進歩が速いので，新しい技術がどんどん出てきます．<br>
+                    それらを使いこなすには，これまでの項目の本質をしっかり理解することが重要です．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <br><br><br>
+
+
+        <div class="anmt">
+          <section id="ex3"> <!-- 練習問題 -->
+            <h2>練習問題３</h2>
+            <div class="doc">
+              次の章の学習に進むためには，練習問題に取り組み，正答する必要があります．<br>
+              わからない場合には，講義資料に戻って内容を理解するようにしてください．<br><br>
+
+              <div class="ex">
+                <u>問題：</u><br>
+                以下の選択肢のうち，test10.htmlにおいて「文章」という文字をtextContentに含むDOMオブジェクトは以下のうちのどれか？
+              </div>
+            </div>
+            <p class="doc">
+              １．<a href="#sec1" class="qanda">document</a><br>
+              ２．<a href="#sec1" class="qanda">document.getElementById('pen')</a><br>
+              ３．<a href="#sec1" class="qanda">document.getElementById('title')</a><br>
+              ４．<a href="#sec1" class="qanda">document.getElementById('pen').chidren</a><br>
+              ５．<a href="WCD1_JavaScript6-4.html" class="qanda" id="correct">document.getElementById('btn1').parentElement</a><br>
+              ６．<a href="#sec1" class="qanda">document.getElementById('btn1')</a><br>
+              ７．<a href="#sec1" class="qanda">window</a>
+            </p>
+          </section>
+        </div>
+
+        <footer>
+          © Faculty of Global Media Studies, Komazawa Univesity 2020.
+        </footer>
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script src="WCD.js"></script>
+    </body>
+</html>

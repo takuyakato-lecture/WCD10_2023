@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Webコンテンツデザイン各論10：JavaScript入門６（2/4:イベント）</title>
+        <link rel="stylesheet" href="WCD.css">
+        <!-- Webフォント用 -->
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;400&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+    <body>
+      <span class="small"><div id="time">経過時間：0秒</div></span>
+
+        <header>
+          <h1>Webコンテンツデザイン各論10：JavaScript入門６（2/4:イベント・演習）</h1>
+          <p class="right">
+            講師：加藤 卓哉<br>
+            <progress value="0.25"></progress><br>
+            (25％ / 100％)
+          </p>
+        </header>
+
+        <section> <!-- 動画 -->
+          <p>
+            <a href="WCD1_JavaScript6-1.html">[前の項目へ]</a>
+          </p>
+          <h2>②イベント・演習</h2>
+
+          <p class="doc">
+            以下の項目を一つずつ読んで内容を理解してください．<br>
+            最後に練習問題に取り組んで次の内容に進みましょう．<br>
+          </p>
+        </section>
+
+        <nav>
+          <h2>本項目の目次</h2>
+          <ul>
+            <li><a href="#sec1">イベント</a>
+            <li><a href="#sec2">プログラミングスキル習得のために</a>
+          </ul>
+          <ul>
+            <li><a href="#ex2">練習問題２</a>
+          </ul>
+        </nav>
+
+        <div class="anmt">
+          <section id="sec1"> <!-- sec1 -->
+            <div class="hidden_box">
+              <label for="label1">イベント<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label1"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-19.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    続いての項目は「イベント」です．<br>
+                    いよいよJavaScript入門の最後の項目となります！<br><br>
+
+                    ここまでの内容でDOMの操作によってHTMLの要素が書き換えられることがわかったと思いますが，そもそもページを開いた瞬間にJavaScriptで指定された文章に書き換えられるくらいなら，最初からHTMLの文章を編集した方が早いですよね．<br><br>
+
+                    DOMオブジェクトの内容の書き換えを実際に使うことを考えると，要素の書き換えは何かしらの「イベント」をきっかけに実行されてほしいわけです．<br>
+                    イベントというと，例えば「マウスがクリックされた」とか，「ポインタが重なった」とか，「指定の時間を過ぎた」とかですね．<br>
+                    あるイベントが発生したときに「この関数を実行して」とプログラミングしておくと，マウスがクリックされた際などにあらかじめ仕込んでおいた関数が動作して，表示が変わったりといったことが実現できるわけです．<br>
+                    このとき，イベントに付随して実行される処理を定義した関数のことを<span class="important">イベントハンドラ</span>と呼びます．
+                  </div>
+                </div>
+                <p class="doc">
+                  ↑の吹き出しをクリックすると，音声が読み上げられます．（環境依存あり）
+                </p>
+
+                <div class="slide"><img src="slides/10-20.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    では，ここでイベントというものに関するプログラムをどう書けばいいのかを学ぶために，さきほどtest10.htmlに用意した謎の「Hi!ボタン」を使用します．<br>
+                    このボタンがクリックされた暁にさきほどの文章の書き換えが実行されるようなプログラムとしたいと思います．<br><br>
+
+                    まず，ボタンのDOMオブジェクトのプロパティの中の「クリックされた」という項目を設定しなければいけません．<br>
+                    これは，「onclick」というプロパティによって設定できます．DOMオブジェクトには，あらかじめこのonclickというプロパティが存在しますので，そこにイベントハンドラを設定しいきます．<br><br>
+
+                    イベントに対するイベントプロパティの設定の方法は，<br>
+                    DOMオブジェクト.イベントのプロパティ = イベントハンドラ;<br>
+                    という具合に書きます．例えば，上記のHi!ボタン(IDは'btn1')がクリックされた際のイベントハンドラを設定したい場合には，<br>
+                    document.getElementById('btn1').onclick = イベントハンドラ;<br>
+                    と記述します．<br>
+                    例えば，btnClickという名前の関数を定義して，これをボタンがクリックされた際の処理としたい場合には以下のように書きます．<br>
+                    document.getElementById('btn1').onclick = btnClick;<br><br>
+
+                    ここで，関数本体の定義はまた別の箇所で行います．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-21.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    では実際にプログラムを書いてみましょう．<br>
+                    ここで書いていただくのは，「Hi!ボタン」がクリックされたというイベントをきっかけに先ほどのDOMオブジェクトの要素の書き換えを行うというプログラムです．<br>
+                    まずは普通に関数の定義を行います．btnClick関数として，その中でtitleとpenのtextContentの書き換えを行います．<br><br>
+
+                    関数なので，定義しただけでは実行されませんね．<br>
+                    この関数をイベントハンドラとして，イベントが起こった際に発動させることにします．<br><br>
+
+                    最後の1行がまさにイベントハンドラの設定です．<br>
+                    序盤の「document.getEkementById('btn1')」の部分がDOMオブジェクトに相当する部分ですね．<br>
+                    このオブジェクトの「.onclick」，つまりこの要素がクリックされたとき，に，「btnClick」という関数を実行してくださいというプログラムとなります．<br>
+                    実際にプログラムを書いてみましょう．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-22.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    これが実行結果です．<br>
+                    いかがでしょうか？<br>
+                    Hi!ボタンをクリックしたら文章が書き換えられたでしょうか？<br><br>
+
+                    もしうまくいかない場合にはコンソールにエラーメッセージが出ていないかを確認してみてください．<br>
+                    注意深く１行ずつ記述していけばうまく動作するはずです．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-23.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    次はボタンのクリック以外のイベントに対するイベントハンドラの設定の例を紹介します．<br>
+                    ちょっと地味な例ですが，「Webページの読み込みが完了した」というイベントの例です．<br><br>
+
+                    今のところ，HTMLソース内でJavaScriptファイルを読み込むscriptタグは，bodyタグの末尾に置かれています．<br>
+                    ただ，これが嫌だというケースがあります．<br>
+                    今までのようにheadタグの中にまとめて置いておくことで，たくさんのscriptタグを併用している際に，どのようなscriptが使われているのかがすぐにわかって便利だったりするのです．<br>
+                    ただ，上に置いてしまうとそれより下で定義されたHTMLの要素が取得できないという問題があったわけですよね．<br>
+                    そこで，「読み込みが完了した」というイベントをきっかけに要素を取得する処理を書くことで，NULLオブジェクトを参照するようなエラーに悩まされずに済むようになります．<br>
+                    読み込みのことを「load」と言いますが，このloadイベントが起きたときにイベントハンドラが実行されるような記述をします．<br>
+                    次のスライドで実際にプログラムを書いてみましょう．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-24.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    「HTMLソースの読み込みが完了してから」処理を実行するプログラムを書きます．<br>
+                    が，その前にまず，先ほど移動させたtest10.html内のscriptタグの位置を元に戻しましょう．<br>
+                    headタグの中に再移動です．<br><br>
+
+                    loadに関するイベントのプロパティはonloadです．<br>
+                    ここで，何がロードされたかというところが重要なのですが，画面全体がロードされたことをきっかけに処理を実行したいので，windowというオブジェクトのonloadに対してイベントハンドラを設定します．<br>
+                    windowというオブジェクトもdocumentオブジェクトと同様にブラウザが生成してくれるオブジェクトとなっており，表示される画面に関連した情報を含んでいます．<br><br>
+
+                    こちらのプログラムを書いた状態でtest10.htmlを開いてみると，scriptタグが上部にある状態でも，エラーを起こさずに文章の書き換えを行うことができているのが確認できるかと思います．
+                  </div>
+                </div>
+
+                <div class="slide"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    なんと，以上で全19項目のJavaScriptプログラミング入門の内容の学習の終わりです．<br>
+                    ここまでよく頑張りました！<br><br>
+
+                    これで今まで学んだことを応用して色々なWebプログラムが書けるようになっている，，，はずです．<br>
+                    とはいえもう少し応用力というのを身につけないといけませんので，その辺りについては来週から少しずつ扱っていきたいと思います．<br><br>
+
+                    ひとまず，JavaScript入門の内容はこれで終わりです．<br>
+                    本当にここまでよく頑張りましたね！<br><br>
+                    今日の講義はもう少し続きます．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="anmt">
+          <section id="sec2"> <!-- sec2 -->
+            <div class="hidden_box">
+              <label for="label2">プログラミングスキル習得のために<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label2"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-25.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    ここまでに皆さんはJavaScriptのプログラミングに関する色々な項目を学習してきました．<br>
+                    世の中で実際に動いているシステムの多くはここまでに学習した要素を使って動いています（全部ではなく一部ですが，，）<br>
+                    とはいえ，まだ皆さんにはInstagramのようなWebサイトを作れと言われても無理なことだと思います．<br><br>
+
+                    プログラムはノウハウを教わっただけで書けるようにはならないんですね．<br>
+                    知識としてではなくスキルとして身につけなければ書けるようにはならないのです．<br>
+                    スキルとして身に着けるためにはとにかく書くことです．<br>
+                    とにかく書いてトライ＆エラーを繰り返しながら慣れていきましょう．これがスキルを身に着けるために重要なことです．<br><br>
+
+                    とはいえ，ただずっと練習問題や演習課題に取り組んでいるだけではあまりモチベーションも上がりませんよね．<br>
+                    そこで，自分で何か作りたいものを考えて作ってみるといいです．<br>
+                    YouTubeみたいなサービスを作りたいとか，パズドラみたいなゲームを作りたいとか，そういった目的を明確にした上で，それに向かってコツコツとプログラムを書いて積み上げていくことです．<br>
+                    これにより，モチベーションを保ったままトライ＆エラーを繰り返すことができて，目的を達成した際には，作りたかったソフトができている上に自分自身にもプログラミング能力が身についているというわけです．<br>
+                    この講義内ではそこまでプロジェクト学習のようなことはできないのですが，プログラミングの裾野は広く，あらゆる問題に活用できますので，是非ゼミの研究などでも課題に取り組むためのオリジナルのプログラムを作ってみたりするといいと思います．<br><br>
+
+                    また，プログラミングを学習するにあたって，先人たちのコードは大いに参考になります．<br>
+                    他者が作ったプログラムに学ぶといいでしょう．<br>
+                    他者のコードを参考にすることで，目的を達成する近道になったりします．<br>
+                    ただし，何も理解せずにコピー＆ペーストするのは何のためにもなりません．<br>
+                    自分のスキルもつかないですし，場合によっては盗用となってしまいます．あくまでも勉強のために他者のコードを参考にしましょう．<br><br>
+
+                    本講義は残り数回あるのと，あとは後期の専門科目である「Webコンテンツデザイン演習ではこの講義の続きの内容を扱っていきます．<br>
+                    そこでは，これまでに学習した内容を前提として，プログラミングを応用することによる高度な内容に取り組んでいきたいと思います．<br>
+                    つまり，復習をしっかりしておいていただきたいということです．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-26.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    ここまでにプログラミングを学んできたわけですが，これは高度なWebコンテンツを制作するために必要なスキルとして勉強していただいていたわけです．<br>
+                    単位のためではなく，スキルを身に着けるための勉強だったわけです．<br><br>
+
+                    JavaScriptによるプログラミング能力がある程度身についていなければWebコンテンツの制作はあまりできません．<br>
+                    あまりというのは，あまりクオリティが高くない単純なコンテンツなどは作れるけれど，その先にはいけないという意味です．<br>
+                    近年のWebコンテンツではほぼ必須の存在ともいえるWeb APIの利用はプログラミング能力なしにはできないことです．<br>
+                    このオンライン講義ページでも音声合成APIなどを使っていますが，これもWebプログラミングができてこそのコンテンツなわけですね．<br>
+                    Macの人に対応していないのは申し訳ないです．．<br><br>
+
+                    とまぁ，皆さんには出来る限りのプログラミング能力を身に着けた上で今後のWebプログラミングの内容に臨んでいただきたいわけなのです．<br>
+                    そこで，このタイミングで課題授業としてWebアプリケーション開発に関する演習を出します．<br>
+                    （詳細は授業支援システムを参照してください．）<br><br>
+
+                    この課題授業も合わせて取り組むことで，皆さんのWebプログラミングの基礎力を少しでも高めていただければと思います．<br>
+                    また，この講義の成績評価にも関わるレポートについてですが，ここまでの学習内容を基に期末レポートを出題します．<br>
+                    レポートに取り組んでいただくことでこれまでの内容に関しての十分な復習とスキルの定着を目指したいと思います．<br>
+                    期末レポートについても詳細は授業支援システムの情報を参照するようにしてください．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="anmt">
+          <section id="ex2"> <!-- 練習問題 -->
+            <h2>練習問題２</h2>
+            <div class="doc">
+              次の章の学習に進むためには，練習問題に取り組み，正答する必要があります．<br>
+              わからない場合には，講義資料に戻って内容を理解するようにしてください．<br><br>
+
+              <div class="ex">
+                <u>問題：</u><br>
+                JavaScriptにおいて，イベントをきっかけに実行される関数のことを何と呼ぶか？
+              </div>
+            </div>
+            <p class="doc">
+              １．<a href="#sec1" class="qanda">即時関数</a><br>
+              ２．<a href="#sec1" class="qanda">イベント関数</a><br>
+              ３．<a href="#sec1" class="qanda">イベント配列</a><br>
+              ４．<a href="WCD1_JavaScript6-3.html" class="qanda" id="correct">イベントハンドラ</a><br>
+              ５．<a href="#sec1" class="qanda">イベントプロパティ</a><br>
+              ６．<a href="#sec1" class="qanda">無名関数</a><br>
+              ７．<a href="#sec1" class="qanda">Dreams come true</a><br>
+              ８．<a href="#sec1" class="qanda">onclick</a>
+            </p>
+          </section>
+        </div>
+
+        <footer>
+          © Faculty of Global Media Studies, Komazawa Univesity 2020.
+        </footer>
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script src="WCD.js"></script>
+    </body>
+</html>

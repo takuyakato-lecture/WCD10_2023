@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Webコンテンツデザイン各論10：JavaScript入門６（1/4:DOM）</title>
+        <link rel="stylesheet" href="WCD.css">
+        <!-- Webフォント用 -->
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;400&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+    <body>
+      <span class="small"><div id="time">経過時間：0秒</div></span>
+
+        <header>
+          <h1>Webコンテンツデザイン各論10：JavaScript入門６（1/4:DOM）</h1>
+          <p class="right">
+            講師：加藤 卓哉<br>
+            <progress value="0"></progress><br>
+            (0％ / 100％)
+          </p>
+        </header>
+
+        <section> <!-- 動画 -->
+          <h2>①DOM</h2>
+          <!-- <div class="video"> -->
+            <!-- 動画のリンクをここに -->
+            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/iB5CvDmIciY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div> -->
+
+          <!-- <p class="doc">
+            上記の動画を試聴するか，以下の項目を一つずつ読んで内容を理解してください．<br>
+            最後に練習問題に取り組んで次の内容に進みましょう．<br>
+            <span class="small">※　動画の内容と以下の項目は同じ内容です．</span>
+          </p> -->
+          <p class="doc">
+            以下の項目を一つずつ読んで内容を理解してください．<br>
+            最後に練習問題に取り組んで次の内容に進みましょう．
+          </p>
+        </section>
+
+        <nav>
+          <h2>本項目の目次</h2>
+          <ul>
+            <li><a href="#sec1">導入</a>
+            <li><a href="#sec2">DOM</a>
+          </ul>
+          <ul>
+            <li><a href="#ex1">練習問題１</a>
+          </ul>
+        </nav>
+
+
+        <div class="anmt">
+          <section id="sec1"> <!-- sec1 -->
+            <div class="hidden_box">
+              <label for="label1">導入<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label1"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-01.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    それでは，Webコンテンツデザイン各論の第10回講義を始めます．<br>
+                    今日も忘れずにノートを取りましょう．<br>
+                    ファイル名は「WCD1_10_JavaScript6-_GK????_hirai.docx」などがいいかと思います．<br>
+                    第１０回でJavaScript入門の６回目ですね．<br><br>
+
+                    オンライン講義になってから，出席率が対面授業のときよりも圧倒的に高い状況が続いています．<br>
+                    普段だったら授業に行くのをサボってしまっていた人も，オンラインなら続けられているという証拠です．<br>
+                    その分，今までよりも課題が多いと感じたりもするでしょう．今までだったら諦めていた分にも取り組む必要があるからですね．<br>
+                    でも，これは今までにないほどに皆さんの学力を向上させるチャンスなんです．<br><br>
+
+                    ただし，「勉強している」という意識を持って続けていかなければ，ただの「時間を消費して取り組む作業」になってしまいます．<br>
+                    勉強して能力を得なければ，レポートなどに取り組むのも難しいです．<br>
+                    今一度，単位のために時間を使っているのではなく，能力を得るために勉強をしていて，その結果単位を認定されるという認識を持って取り組みましょう．<br>
+                    各ページの練習問題の回答を上から順に適当にクリックしている人には最後のレポートの提出は難しいものとなります．<br>
+                    今ならまだ間に合うので，適宜復習しながら，確実にプログラミング能力を身に着けてください．
+                  </div>
+                </div>
+                <p class="doc">
+                  ↑の吹き出しをクリックすると，音声が読み上げられます．（環境依存あり）
+                </p>
+
+                <div class="slide"><img src="slides/10-02.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    本日９回目は「JavaScript入門⑥」です．<br>
+                    いよいよ，JavaScript入門の最後の項目になります．<br><br>
+
+                    プログラミングは積み重ねが重要なのでこれまでの内容を理解していることを前提に進めますので，適宜過去の資料に戻って不明点をなくしていってください．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-03.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    では本日の内容に入っていきます．<br>
+                    本日はだいぶ久しぶりにHTMLも登場して，ようやく「ただのプログラミング」から「Webプログラミング」のステップへと移ります．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-04.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    前回までに⑯のメソッドまで学習しました．<br>
+                    今日は最後の二項目，⑰のDOMと⑱のイベントについて学んでいきます．<br>
+                    前回までのオブジェクト，関数の内容なども踏まえて進んでいきますので，理解が追い付いていないところがあったら，適宜前の資料に戻って学習していってください．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-05.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    本日の内容に入る前に前回までの復習です．<br>
+                    これまでに学習した項目については特に解説なしに使っていきますので，各自しっかり理解していることを確認してください．<br>
+                    いつもこれらのスライドを表示していますが，この内容については，自分で何も見ずに説明できるくらいに覚えてほしい内容です．<br>
+                    こちらがJavaScript入門①の分の復習です．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-06.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    こちらはJavaScript入門②，③の分の復習です．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-07.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    こちらはJavaScript入門④，⑤の分の復習です．<br>
+                    本日の内容はこの辺りとの関係が深いのでしっかりと思い出してくださいね．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-08.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                  作業の手順です．<br>
+                  もういつものルーティンですね．<br><br>
+
+                  いつもの手順です．<br>
+                  今週は第10週なので，WCD2020フォルダのweb_filesフォルダ内week10フォルダの中にコピーしてください．<br>
+                  HTMLのtitleは「JavaScript入門⑥」などにしてください．<br>
+                  詳しい作業準備の手順についての説明は不要ですね．<br><br>
+
+                  では各自で本日の作業の準備をして本日の学習内容に入りましょう．<br>
+                  今日は久しぶりにHTMLファイルの方も使いますので，HTMLファイルの方もエディタで開いたままにしておいてくださいね．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="anmt">
+          <section id="sec2"> <!-- sec2 -->
+            <div class="hidden_box">
+              <label for="label2">DOM<span class="small">（クリックして表示）</small></label>
+              <input type="checkbox" id="label2"/>
+              <div class="hidden_show">
+                <!--非表示ここから-->
+                <div class="slide"><img src="slides/10-09.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    これまで，JavaScript入門の全６回のうちの５回の学習を終えましたが，皆さんプログラミングの学習をしているという認識はあったかと思いますが，Webとの関連性が今一つはっきりとはしていなかったのではないかと思います．<br>
+                    実は先週までの内容はまだ純粋なプログラミングの学習内容で，Webとの関連についてはまだなかったのです．<br>
+                    本日最初に学習するDOMによって，ようやくJavaScriptとHTMLが繋がることになり，これまでのプログラミング学習の内容を活かすことができることとなります．<br><br>
+
+                    ようやく今日から「Webプログラミング」になるわけですね．<br><br>
+
+                    これまで，変数には数値を入れたり，文字列データを入れたりしましたが，これからは，「Webページに表示するための文字列」や「Webページでクリックが行われた回数」などのWeb関連のデータを扱うことになります．<br>
+                    よくわからない数値などではなく，実用的なデータを扱いますので，これからの内容の方がむしろ理解がしやすいのではないかと期待しています．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-10.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    本日最初の学習項目DOMは，Document Object Modelと呼ばれる，HTMLとJavaScriptとの橋渡しを行うような仕組みです．<br><br>
+
+                    HTMLソースには，bodyタグやdivタグなど，色々なタグとそれに含まれる文章などのコンテンツが記述されています．<br>
+                    DOMは，そういったHTMLのタグ等で囲まれたコンテンツをJavaScriptにおけるオブジェクトとして扱うための仕組みです．<br><br>
+
+                    このDOMによって生成されるオブジェクトに対してプログラムによって中身の文章を書き換えたりすることで，JavaScriptのプログラムがHTMLのタグなどの要素に影響を与えられるわけです．
+
+                    オブジェクトについては先週学習しましたね．<br>
+                    理解が曖昧な場合はきちんと理解してから今日の内容に戻ってきましょう．<br>
+                    でないと，今日の内容の理解もさらに曖昧になってしまいます．<br>
+                    復習が必要な人は以下のリンクから先週の資料に戻って学習しましょう．
+                  </div>
+                </div><br>
+
+                <p class="doc">
+                    <a href="WCD1_JavaScript5-1.html#sec2">オブジェクトの資料に戻る</a><br>
+                    ↑上記を閲覧した後にはブラウザの「戻る」でこのページに戻れます．
+                </p>
+
+                <div class="slide"><img src="slides/10-11.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    HTMLの文書（document）内のタグなどの<span class="important">要素</span>のことを<span class="important">element</span>と呼びます．<br>
+                    この要素（element）をJavaScript側で取得するための方法がここに挙げた二つの方法です．<br><br>
+
+                    一つ目は，<br>
+                    document.querySelctor('セレクタ');<br>
+                    です．<br>
+                    'セレクタ'の部分には，CSSのセレクタと同じ記述をします．<br>
+                    例えば，「test」という名前のclassに所属するタグ（要素）を取得し，オブジェクト「p」に代入したい場合は，<br>
+                    var p = document.querySelctor(.test);<br>
+                    と記述します．IDの場合は「.」の部分が「#」になりますね．<br><br>
+
+                    二つ目のオブジェクトの取得方法は，<br>
+                    document.getElementById('ID');<br>
+                    です．<br>
+                    よく，「Id」の部分を「Ld」と書いてしまう人がいますが，アイディーを使って要素を取得する方法ですので，エルディーではありません．IとLの小文字は似てますけど違いますので注意してください．<br>
+                    例えば，'p-tag'というIDを持つHTMLの要素のDOMオブジェクトを，「p」に代入したい場合は以下のように記述します．<br><br>
+
+                    var p = document.getElementById('p-tag');<br><br>
+
+                    このように取得したDOMオブジェクトの「p」には，HTMLファイルでp-tagというIDがつけられた要素の様々なデータが含まれています．<br>
+                    例えば，この要素の中に「こんにちは」と書かれていたとしたら，p.textContentというDOMオブジェクトのプロパティの値は「こんにちは」という文字列のデータとなります．<br>
+                    逆に，JavaScriptの方で，このタグの中の文章を書き換えたい場合は，<br>
+                    p.textContent = '文章の書き換え';<br>
+                    と記述すると，Webページに表示される文章の書き換えができます．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-12.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    DOMを理解するためには，HTMLソースの，タグの階層図（親子関係）というものを理解する必要があります．<br>
+                    ChromeなどのブラウザがHTMLファイルを読み込むと，まず「document」という名前のオブジェクトが自動で生成されます．<br>
+                    試しに，ブラウザのコンソールで「document」とだけ記述してEnterキーを押してみてください．<br>
+                    documentオブジェクトの中にはhtmlタグのオブジェクトがあり，さらにその中にはheadタグのオブジェクト，bodyタグのオブジェクトといった具合に，オブジェクトの中にオブジェクトがあるような内包関係があります．<br>
+                    内側のオブジェクトのことを子要素，外側のオブジェクトのことを親要素と呼びます．<br>
+                    つまり，htmlタグのDOMオブジェクトの子要素はheadタグのオブジェクトとbodyタグのオブジェクトとなります．<br>
+                    titleタグのオブジェクトの親要素はheadタグのオブジェクトとなるわけです．<br><br>
+
+                    HTMLのソースを記述する際には，字下げ（インデント）が重要という話をしましたが，このインデントによって，右側に行くほど子要素となり，左側に行くほど親要素となっていることがわかりやすくなります．<br>
+                    documentオブジェクトに関するプログラムを書く際には各要素の親子関係を意識して行う必要があります．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-13.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    クラス名やIDが付与されていないHTMLの要素を取得するのは若干面倒なのですが，HTML documentの親子関係を使うことで要素の取得ができます．<br>
+                    まず，var pには'p-tag'というIDがついている要素のオブジェクトが格納されます．<br>
+                    右下のHTMLソースと対応させてみると，<br>
+                    &lt;p id="p-tag"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;これは&lt;b&gt;文章&lt;/b&gt;です．<br>
+                    &lt;/p&gt;<br>
+                    という部分のオブジェクトが「p」に格納されています．<br><br>
+
+                    この状態で，<br>
+                    var parent = p.parentElement;<br>
+                    と記述すると，「parent」は，pタグの親要素であるbodyタグに関するオブジェクトとなるわけです．<br>
+                    さらに，<br>
+                    var nChild = parent.childElementCount;<br>
+                    と記述すると，parentオブジェクトの子要素の数が変数「nChild」に格納されます．この場合は「2」という数値になりますね．<br><br>
+
+                    他にもDOMオブジェクトに対し，「.children」と記述すると，すべての子要素が配列として取得できます．<br>
+                    var children = parent.children;<br>
+                    と記述すると，bodyタグの子要素すべてのオブジェクトが配列として「chidren」に格納されます．<br>
+                    なので，children[0]にはh1タグのオブジェクト，children[1]にはpタグのオブジェクトが格納されていることになります．<br>
+                    ここで，children[1]はpと同じHTML要素を指すオブジェクトとなりますね．<br><br>
+
+                    例えばh1タグの文章を書き換えたければ，<br>
+                    children[0].textContent = '変更';<br>
+                    のように書くわけです．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-14.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    では実際にプログラムを書いていきましょう．<br>
+                    まずは準備として，HTMLの方に要素を追加しましょう．<br>
+                    test10.htmlの方をAtomで開いて編集します．<br>
+                    赤字で書かれているh1タグ，pタグ，buttonタグを追加しましょう．<br><br>
+
+                    今回初めて登場するbuttonタグというのは，文字通りボタンを作るためのタグです．<br>
+                    ここでは「Hi!」とだけ書かれた謎のボタンを作成しておきます．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-15.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    続いてJavaScriptのプログラムを記述していきます．<br>
+                    getElementByIdで要素を取得し，二つのDOMオブジェクトtitleとpenを用意します．<br>
+                    その後，「.textContent」の中身を別の文字列にすることで，HTMLで書いた文章の上書きを行ってみます．<br><br>
+
+                    test10.jsの方に上記の赤字で書いたプログラムが書けたら，test10.htmlをブラウザで開いて動作を確認してみましょう．<br><br>
+
+                    何か表示が変わったでしょうか？<br>
+                    変わらないですよね？<br><br>
+
+                    何かおかしいですね．<br>
+                    こういうときはコンソールにエラーメッセージが出ていないかを確認です．<br><br>
+
+                    案の定，エラーメッセージが出ていますね．<br>
+                    "Cannot set property 'textContent' of null at test10.js:4"ということです．<br>
+                    4行目で，NULL（空っぽ）の存在に対して'textContent'のプロパティをセット（書き換え）しようとしたというエラーメッセージのようです．<br>
+                    4行目というと「title.textContent = 'Thank you!';」の箇所ですね．<br>
+                    エラーメッセージによると，この時点でtitleというオブジェクトがNULL（空っぽ）だということです．<br><br>
+
+                    実はそうなんです！
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-16.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    以前紹介したプログラミングの原則を思い出してみてください．<br>
+                    <span class="important">命令は上から順番に実行される！</span>という原則です．<br>
+                    実はこれはJavaScriptだけでなくHTMLの方にも当てはまるんですね．<br><br>
+
+                    test10.htmlの方に注目してみましょう．<br>
+                    上から順番にソースを確認していくと謎が解けます．<br>
+                    test10.jsの参照を行っているのは，6行目のscriptタグですよね．<br>
+                    実はこの時点ではまだ，下の方の#titleや#penなどのIDを持った要素が定義されていないんです．<br>
+                    つまり，DOMオブジェクトが作成される前ということですね．<br><br>
+
+                    そのため，この時点で参照されるtest10.jsのプログラムでは，まだ定義されていない#titleや#penなどのIDを持った要素を取得するということはできないんです．<br>
+                    取得しようと思っても空っぽ（NULL）の状態なので，値を変更するなどの処理ができないわけです．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-17.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    ということで，この問題を解決するために，scriptタグの位置を変えてしまいましょう．<br>
+                    使用したい各種タグが定義され終わったbodyタグの下に書いてしまいます．<br>
+                    これなら，test10.jsが参照される頃にはすでにh1タグもpタグも定義されており，それらのDOMオブジェクトも生成されています．<br>
+                    各自の環境でも実際にscriptタグの位置を変えてみてください．
+                  </div>
+                </div>
+
+                <div class="slide"><img src="slides/10-18.JPG"></div>
+                <div class="container">
+                  <div class="faceicon"><img src="icon.jpg"></div>
+                  <div class="baloon">
+                    この状態で動作を確認すると，それまでは「Hello!」だったh1タグの文章が「Thank you!」に書き換えられていますね．<br>
+                    さらに「This is a pen.」と書かれていたpタグの文章は「I am Bob.」に書き換えられていますね．<br>
+                    HTMLファイルを作成した人がどんなに長文の文章を書いていたとしても，DOｍオブジェクトのtextContentの値を書き換えてしまえば，表示上は「I am Bob.」にしてしまったりといったことができます．<br><br>
+
+                    ようやくJavaScriptのプログラムによってHTMLの内容の書き換えができましたね．<br>
+                    これがWebプログラミングです．<br>
+                    といっても，まだDOMオブジェクトの中の値を変更しただけでプログラミング感は少ないですね．<br>
+                    次の項目でよりプログラミング感のあるプログラムを書いていきましょう．
+                  </div>
+                </div>
+                <!--ここまで-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="anmt">
+          <section id="ex1"> <!-- 練習問題 -->
+            <h2>練習問題１</h2>
+            <div class="doc">
+              次の章の学習に進むためには，練習問題に取り組み，正答する必要があります．<br>
+              わからない場合には，講義資料に戻って内容を理解するようにしてください．<br><br>
+
+              <div class="ex">
+                <u>問題：</u><br>
+                DOMに関する説明として誤っているのはどれか？
+              </div>
+            </div>
+            <p class="doc">
+              １．<a href="#sec1" class="qanda">DOMによって，HTMLソース内の要素をJavaScriptのオブジェクトとして扱うことができる</a><br>
+              ２．<a href="#sec1" class="qanda">DOMはHTMLとJavaScriptの橋渡しを行う仕組みである</a><br>
+              ３．<a href="#sec1" class="qanda">HTMLソース内で"test"という名前のIDが付与された要素があり，そのDOMオブジェクトを取得したい場合には，document.getElementById('test');と記述する</a><br>
+              ４．<a href="#sec1" class="qanda">DOMは，HTMLの要素の親子関係を階層的に表現したオブジェクトのモデルである</a><br>
+              ５．<a href="#sec1" class="qanda">document.querySelector()によって，CSSで使用したようなセレクタを使って要素の取得をすることができる</a><br>
+              ６．<a href="WCD1_JavaScript6-2.html" class="qanda" id="correct">HTMLソース内で"test"という名前のIDが付与された要素があり，そのDOMオブジェクトを取得したい場合には，document.getElementByLd('test');と記述する</a>
+            </p>
+          </section>
+        </div>
+
+        <footer>
+          © Faculty of Global Media Studies, Komazawa Univesity 2020.
+        </footer>
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script src="WCD.js"></script>
+    </body>
+</html>
